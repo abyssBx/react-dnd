@@ -43,7 +43,7 @@ export default function decorateHandler({
 
     shouldComponentUpdate(nextProps, nextState) {
       return !arePropsEqual(nextProps, this.props) ||
-             !shallowEqual(nextState, this.state);
+        !shallowEqual(nextState, this.state);
     }
 
     constructor(props, context) {
@@ -52,7 +52,7 @@ export default function decorateHandler({
       this.handleChildRef = this.handleChildRef.bind(this);
 
       invariant(
-        typeof this.context.dragDropManager === 'object',
+        typeof this.context.dragDropManager === 'object' && typeof window.dnd.context.dragDropManager === 'object',
         'Could not find the drag and drop manager in the context of %s. ' +
         'Make sure to wrap the top-level component of your app with DragDropContext. ' +
         'Read more: http://react-dnd.github.io/react-dnd/docs-troubleshooting.html#could-not-find-the-drag-and-drop-manager-in-the-context',
@@ -60,7 +60,7 @@ export default function decorateHandler({
         displayName,
       );
 
-      this.manager = this.context.dragDropManager;
+      this.manager = this.context.dragDropManager || window.dnd.context.dragDropManager;
       this.handlerMonitor = createMonitor(this.manager);
       this.handlerConnector = createConnector(this.manager.getBackend());
       this.handler = createHandler(this.handlerMonitor);
@@ -107,10 +107,10 @@ export default function decorateHandler({
         handlerId,
         unregister,
       } = registerHandler(
-        type,
-        this.handler,
-        this.manager,
-      );
+          type,
+          this.handler,
+          this.manager,
+        );
 
       this.handlerId = handlerId;
       this.handlerMonitor.receiveHandlerId(handlerId);
