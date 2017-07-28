@@ -30,7 +30,7 @@ export default function decorateHandler({
     static displayName = `${containerDisplayName}(${displayName})`;
 
     static contextTypes = {
-      dragDropManager: PropTypes.object.isRequired,
+      dragDropManager: PropTypes.object,
     }
 
     getHandlerId() {

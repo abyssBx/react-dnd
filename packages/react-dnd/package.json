@@ -1,6 +1,6 @@
 {
   "name": "@uic/react-dnd",
-  "version": "2.4.0-1",
+  "version": "2.4.0-2",
   "description": "Drag and Drop for React",
   "main": "lib/index.js",
   "repository": {
